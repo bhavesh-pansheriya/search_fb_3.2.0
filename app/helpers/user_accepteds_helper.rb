@@ -1,0 +1,2 @@
+module UserAcceptedsHelper
+end

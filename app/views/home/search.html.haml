@@ -1,0 +1,38 @@
+= link_to "Go To Search", root_path
+= link_to "Click for Accepted list", user_accepteds_path
+%br/
+%br/
+- unless @search_data.blank?
+  %table{:border => "1"}
+    %tr
+      %th FoundedId
+      %th FromName
+      %th Name
+      %th Type
+      %th CreatedTime
+      %th UpdatedTime
+      %th Action
+    - @search_data.each do |data|
+      %tr{:id => "#{data["id"]}", :style => "color:#{cycle("#009933", "#003366")}"}
+        = form_for UserAccepted.new, :remote => true do |f|
+          = f.hidden_field :founded_id, :value => data["id"]
+          = f.hidden_field :from_name, :value => data["from"]["name"]
+          = f.hidden_field :name, :value => data["name"]
+          = f.hidden_field :found_type, :value => data["type"]
+          = f.hidden_field :created_time, :value => data["created_time"]
+          = f.hidden_field :updated_time, :value => data["updated_time"]
+          %td= data["id"]
+          %td= data["from"]["name"]
+          %td= data["name"]
+          %td= data["type"]
+          %td= data["created_time"]
+          %td= data["updated_time"]
+          %td= f.submit "Accept", :onclick => "return hide_raw('#{data["id"]}');"
+- else
+  %b Search content not found in facebook general search!
+
+:javascript
+  function hide_raw(raw_id)
+  {
+    jQuery("tr#"+raw_id).hide();
+  }

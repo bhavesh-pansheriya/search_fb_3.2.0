@@ -1,0 +1,29 @@
+= link_to "Go to Search", root_path
+%br/
+%br/
+- unless @accepted_list.blank?
+  %table{:border => "1"}
+    %tr
+      %th FoundedId
+      %th FromName
+      %th Name
+      %th Type
+      %th CreatedTime
+      %th UpdatedTime
+      %th Action
+    - @accepted_list.each do |data|
+      %tr{:style => "color:#{cycle("#009933", "#003366")}"}
+        %td= data.founded_id
+        %td= data.from_name
+        %td= data.name
+        %td= data.found_type
+        %td= data.created_time
+        %td= data.updated_time
+        %td= link_to "Remove", data, :confirm => 'Are you sure to delete record?', :method => :delete, :remote  => true
+-else
+  %b No Accepted entry found
+
+
+
+
+

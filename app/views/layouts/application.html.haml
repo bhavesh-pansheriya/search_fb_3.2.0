@@ -1,0 +1,17 @@
+!!!
+%html
+  %head
+    %title SearchFb32
+    = stylesheet_link_tag    "application", :media => "all"
+    = javascript_include_tag "application"
+    = csrf_meta_tags
+  %body
+    #flash_msg= render :partial => "shared/flashmsgbox"
+    - unless user_signed_in?
+      %b Welcome To Inx |
+      = link_to "Sign in with Facebook", user_omniauth_authorize_path(:facebook)
+    - else
+      = current_user.email
+      = link_to 'Logout', destroy_user_session_path, :method => :delete
+      %hr
+      = yield

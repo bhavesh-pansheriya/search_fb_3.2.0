@@ -1,0 +1,11 @@
+= link_to "Click for Accepted list", user_accepteds_path
+%br/
+%br/
+= form_for "search", :url => home_search_path do |f|
+  = f.text_field :search_content
+  = f.submit 'Search'
+
+
+
+
+
